@@ -3,14 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env"), override: true, quiet: true });
-const smtpRuntimeStatus = {
-    host: Boolean(String(process.env.SMTP_HOST || "").trim()),
-    port: Boolean(Number(process.env.SMTP_PORT || 587)),
-    user: Boolean(String(process.env.SMTP_USER || "").trim()),
-    pass: Boolean(String(process.env.SMTP_PASS || "").trim()),
-    from: Boolean(String(process.env.SMTP_FROM || "").trim())
-};
-console.log("SMTP runtime status:", smtpRuntimeStatus);
+const { getEmailProviderStatus } = require("./services/emailService");
+console.log("Email provider runtime status:", getEmailProviderStatus());
 
 const connectDB = require("./config/db");
 const employeeRoutes = require("./routes/employeeRoutes");
